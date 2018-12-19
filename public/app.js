@@ -1,6 +1,7 @@
 let coords = []
 
 document.addEventListener('DOMContentLoaded', e => {
+    var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options)
     console.log('DOMContentLoaded')
 
     const actionUrl = endpoint => {
@@ -24,11 +25,19 @@ document.addEventListener('DOMContentLoaded', e => {
             console.log(d)
         })
     })
+
+    fetch('/suggest')
+        .then(res => res.text())
+        .then(function(res) {
+            const name = res.replace(/\s/g, '');
+            document.getElementById('input-name').setAttribute('value', name)
+        })
 })
 
 function geo_success(position) {
     coords = [position.coords.latitude, position.coords.longitude]
     console.log(coords)
+    document.getElementById('actions').classList.remove('disabled')
 }
 
 function geo_error() {
@@ -40,5 +49,3 @@ var geo_options = {
     maximumAge: 30000,
     timeout: 27000
 }
-
-var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options)

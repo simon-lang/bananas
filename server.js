@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const generateName = require('sillyname')
 
 // app.set('views', __dirname + '/')
 
@@ -17,6 +18,11 @@ let have = [
     { name: 'under a bridge', coords: [-27.5056585, 152.9733703] },
 ]
 let want = []
+
+app.get('/suggest', (req, res) => {
+    const sillyName = generateName();
+    res.send(sillyName)
+})
 
 app.get('/want', (req, res) => {
     const customer = { name: req.query.name, coords: JSON.parse(req.query.coords) }

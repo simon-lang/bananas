@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bananas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="app.js"></script>
-</head>
-<body>
-    <div class="container">
-        <h1>getbananas<span class="fade">.com</span></h1>
-        <input type="text"
-            id="input-name"
-            class="input"
-            placeholder="Your name or address... 'Pink Shirt' or 'Under bridge', etc"
-            autofocus
-        >
-        <div class="island">
-            <a class="btn" id="btn-have" href="/have">I have bananas</a>
-            <a class="btn" id="btn-want" href="/want">I want a banana</a>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Bananas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+        <script src="app.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="logo">
+                <div class="logo__icon">
+                    <img src="banana.svg" alt="">
+                </div>
+                BananaMarket
+            </h1>
+            <form action="">
+                <label for="">Username <small>We chose one for you</small></label>
+                <input type="text"
+                       required
+                       id="input-name"
+                       class="input"
+                       placeholder="Your name or address... 'Pink Shirt' or 'Under bridge', etc"
+                       autofocus
+                       />
+                <div class="disabled" id="actions">
+                    <a class="btn" id="btn-have" href="/have">I have bananas</a>
+                    <a class="btn" id="btn-want" href="/want">I want a banana</a>
+                </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
