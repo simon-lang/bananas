@@ -2,6 +2,7 @@ let coords = []
 
 document.addEventListener('DOMContentLoaded', e => {
     var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options)
+    var resultTemplate = document.getElementById('result-template')
     console.log('DOMContentLoaded')
 
     const actionUrl = endpoint => {
@@ -11,23 +12,64 @@ document.addEventListener('DOMContentLoaded', e => {
         return `/${endpoint}?name=${name}&coords=${latLng}`
     }
 
+    if(window.location.pathname === '/results') {
+        document.getElementById('results').classList.add('visible');
+    } else {
+        document.getElementById('home').classList.add('visible');
+    }
+
+    document.getElementById('home-link').addEventListener('click', e => {
+        document.getElementById('home').classList.add('visible')
+        document.getElementById('results').classList.remove('visible')
+    })
+
     document.getElementById('btn-want').addEventListener('click', e => {
         e.preventDefault()
         const url = actionUrl('want')
-        fetch(url).then(d => d.json()).then(d => {
-            console.log(d)
-            // history.pushState({ foo: 'bar' }, "Results", "/results");
-            document.getElementById('resultsDebug').innerHTML = JSON.stringify(d, null, 2)
+
+        document.getElementById('wants-title').classList.remove('visible')
+
+        fetch(url).then(d => d.json()).then(results => {
+            console.log(results)
+
+            document.getElementById('results-list').innerHTML = '';
+            results.forEach((result, i) => {
+                resultTemplate.content.getElementById('result-name').innerHTML = result.name;
+                resultTemplate.content.getElementById('result-distance').innerHTML = result.distance.toFixed(2);
+
+                var clone = document.importNode(resultTemplate.content, true);
+                document.getElementById('results-list').appendChild(clone);
+            })
 
             document.getElementById('results').classList.add('visible')
             document.getElementById('home').classList.remove('visible')
+            document.getElementById('has-title').classList.add('visible')
+            document.getElementById('total-haves').innerHTML = results.length;
         })
     })
     document.getElementById('btn-have').addEventListener('click', e => {
         e.preventDefault()
         const url = actionUrl('have')
-        fetch(url).then(d => {
-            console.log(d)
+
+        document.getElementById('has-title').classList.remove('visible')
+
+        fetch(url).then(d => d.json()).then(results => {
+            console.log(results)
+
+            document.getElementById('results-list').innerHTML = '';
+
+            results.forEach((result, i) => {
+                resultTemplate.content.getElementById('result-name').innerHTML = result.name;
+                resultTemplate.content.getElementById('result-distance').innerHTML = result.distance.toFixed(2);
+
+                var clone = document.importNode(resultTemplate.content, true);
+                document.getElementById('results-list').appendChild(clone);
+            })
+
+            document.getElementById('results').classList.add('visible')
+            document.getElementById('home').classList.remove('visible')
+            document.getElementById('wants-title').classList.add('visible')
+            document.getElementById('total-wants').innerHTML = results.length;
         })
     })
 

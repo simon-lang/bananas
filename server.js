@@ -14,10 +14,12 @@ const generateName = require('sillyname')
 app.use(express.static('public'))
 
 let have = [
-    { name: 'the markets', coords: [-27.4572944, 153.0265572] },
-    { name: 'under a bridge', coords: [-27.5056585, 152.9733703] },
 ]
 let want = []
+
+app.get('/results', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html')
+})
 
 app.get('/suggest', (req, res) => {
     const sillyName = generateName();
@@ -30,6 +32,7 @@ app.get('/want', (req, res) => {
 
     const response = have.map(vendor => ({
         name: vendor.name,
+        coords: vendor.coords,
         distance: getDistanceFromLatLonInKm(customer.coords[0], customer.coords[1], vendor.coords[0], vendor.coords[1])
     })).sort((a, b) => a.distance - b.distance)
 
@@ -37,8 +40,16 @@ app.get('/want', (req, res) => {
 })
 
 app.get('/have', (req, res) => {
-    have.push({ name: req.query.name, coords: JSON.parse(req.query.coords) })
-    res.send('OK')
+    const vendor = { name: req.query.name, coords: JSON.parse(req.query.coords) }
+    have.push(vendor)
+
+    const response = want.map(d => ({
+        name: d.name,
+        coords: d.coords,
+        distance: getDistanceFromLatLonInKm(vendor.coords[0], vendor.coords[1], d.coords[0], d.coords[1])
+    })).sort((a, b) => a.distance - b.distance)
+
+    res.send(response)
 })
 
 app.get('/suggest', (req, res) => {

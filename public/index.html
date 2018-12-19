@@ -6,15 +6,37 @@
         <title>Bananas</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="app.js"></script>
-        <script src="router.js"></script>
     </head>
-    <body id="app">
-        <div class="container" id="results">
-            <h1>RESULTS</h1>
-            <div id="resultsDebug"></div>
+    <body>
+        <template id="result-template">
+            <div class="result">
+                <div>
+                    <div>
+                        <p><strong id="result-name"></strong></p>
+                        <p><span id="result-distance"></span> kms from you</p>
+                    </div>
+                    <i class="fa fa-map-pin result__pin"></i>
+                </div>
+                <div id="result-map"></div>
+            </div>
+        </template>
+        <div class="container results" id="results">
+            <div>
+                <h1 class="logo" id="home-link">
+                    <i class="fa fa-chevron-left logo__back"></i>
+                    <div class="logo__icon">
+                        <img src="banana.svg" alt="">
+                    </div>
+                    BananaMarket
+                </h1>
+                <h3 class="results__title" id="wants-title"><i id="total-wants"></i> people want bananas near you</h3>
+                <h3 class="results__title" id="has-title"><i id="total-haves"></i> people have bananas near you</h3>
+                <div class="results-list" id="results-list"></div>
+            </div>
         </div>
-        <div class="container visible" id="home">
+        <div class="container home" id="home">
             <h1 class="logo">
                 <div class="logo__icon">
                     <img src="banana.svg" alt="">
@@ -27,7 +49,7 @@
                        required
                        id="input-name"
                        class="input"
-                       placeholder="Your name or address... 'Pink Shirt' or 'Under bridge', etc"
+                       placeholder="Pink Shirt, John Smith... whatever"
                        autofocus
                        />
                 <div class="disabled" id="actions">

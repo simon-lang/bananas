@@ -9,6 +9,8 @@
     box-sizing: border-box;
 }
 
+i { font-style: normal }
+
 html, body {
     height: 100%;
     background: #333;
@@ -31,6 +33,7 @@ img {
 
 h1, h2, h3, h4 {
     font-weight: normal;
+    margin-bottom: 2rem;
 }
 
 small,
@@ -85,6 +88,12 @@ a.unstyled {
     display: flex;
     margin-bottom: 2rem;
     align-items: center;
+    justify-content: center;
+}
+
+.logo__back {
+    margin-right: 1rem;
+    font-size: 1rem !important;
 }
 
 .logo__icon {
@@ -166,11 +175,18 @@ label small {
 .container {
     height: 100vh;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 1rem;
+    display: none;
+}
+
+.container > div {
+    flex: 1;
+}
+
+.home {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    display: none;
 }
 
 .fade {
@@ -179,4 +195,39 @@ label small {
 
 .visible {
     display: flex;
+}
+
+.results__title {
+    display: none;
+}
+
+.results__title.visible {
+    display: block;
+}
+
+.result {
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0 0.25px 0.5px rgba(0,0,0,0.25);
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    color: #333;
+    position: relative;
+}
+
+.result p:last-child {
+    margin-bottom: 0;
+}
+
+.result__pin {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: #eee;
+    border-radius: 0.25rem;
+    position: absolute;
+    right: 1rem;
+    top: 1.25rem;
 }
