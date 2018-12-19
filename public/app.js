@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', e => {
         const name = document.getElementById('input-name').value
         const latLng = encodeURIComponent(JSON.stringify(coords))
         console.log(latLng)
-        return `/want?name=${name}&coords=${latLng}`
+        return `/${endpoint}?name=${name}&coords=${latLng}`
     }
 
     document.getElementById('btn-want').addEventListener('click', e => {
