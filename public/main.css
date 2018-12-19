@@ -164,15 +164,19 @@ label small {
 }
 
 .container {
-    display: flex;
     height: 100vh;
     margin: 0 auto;
     padding: 0 1rem;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    display: none;
 }
 
 .fade {
     opacity: 0.5;
+}
+
+.visible {
+    display: flex;
 }

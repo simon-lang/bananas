@@ -14,8 +14,13 @@ document.addEventListener('DOMContentLoaded', e => {
     document.getElementById('btn-want').addEventListener('click', e => {
         e.preventDefault()
         const url = actionUrl('want')
-        fetch(url).then(d => {
+        fetch(url).then(d => d.json()).then(d => {
             console.log(d)
+            // history.pushState({ foo: 'bar' }, "Results", "/results");
+            document.getElementById('resultsDebug').innerHTML = JSON.stringify(d, null, 2)
+
+            document.getElementById('results').classList.add('visible')
+            document.getElementById('home').classList.remove('visible')
         })
     })
     document.getElementById('btn-have').addEventListener('click', e => {
@@ -28,7 +33,7 @@ document.addEventListener('DOMContentLoaded', e => {
 
     fetch('/suggest')
         .then(res => res.text())
-        .then(function(res) {
+        .then(function (res) {
             const name = res.replace(/\s/g, '');
             document.getElementById('input-name').setAttribute('value', name)
         })
